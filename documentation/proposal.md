@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+The project aims to predict the number of medals a country will win in future Summer Olympic Games using machine learning models. The analysis involves exploring historical Olympic data, engineering features that capture important trends, and developing predictive models. A PostgreSQL database will be used to store and manage the cleaned and transformed data, ensuring efficient retrieval and analysis throughout the project.
+
 ## Project Team
 
 The team of data scientists working on this project includes:
@@ -10,7 +12,7 @@ The team of data scientists working on this project includes:
 * Grant Itow
 * Evan Wall
 
-The proposal outlines the goals, methodologies, deliverables, and tools that will support the successful completion of the Titanic Survivor Analysis.
+The proposal outlines the goals, methodologies, deliverables, and tools that will support the successful completion of the 125 years of Summer Olympics Analysis.
 
 # **Key Tasks and Components**
 
