@@ -10,7 +10,7 @@ The team of data scientists working on this project includes:
 
 * Omid Khan
 * Grant Itow
-* Evan Wall
+* Evan Wall 
 
 The proposal outlines the goals, methodologies, deliverables, and tools that will support the successful completion of the 125 years of Summer Olympics Analysis.
 
