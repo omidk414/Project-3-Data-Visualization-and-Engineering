@@ -7,7 +7,7 @@
 The team of data scientists working on this project includes:
 
 * Omid Khan
-* Grant Itou
+* Grant Itow
 * Evan Wall
 
 The proposal outlines the goals, methodologies, deliverables, and tools that will support the successful completion of the Titanic Survivor Analysis.
