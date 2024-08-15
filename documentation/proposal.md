@@ -1,94 +1,84 @@
-# Proposal: 
+# Olympic Games Data Exploration
 
 ## Project Overview
 
-The project aims to predict the number of medals a country will win in future Summer Olympic Games using machine learning models. The analysis involves exploring historical Olympic data, engineering features that capture important trends, and developing predictive models. A PostgreSQL database will be used to store and manage the cleaned and transformed data, ensuring efficient retrieval and analysis throughout the project.
+This project involves exploring a comprehensive dataset of the modern-day Olympic Games, covering events from the 1896 to 2020. The dataset includes over 271,000 instances and 15 attributes, detailing individual athletes and their performances. The goal is to analyze this data, generate insights, and answer key questions about trends, medal distributions, and athlete characteristics across different Olympic Games.
 
-## Project Team
+## Dataset Description
 
-The team of data scientists working on this project includes:
+The dataset provides detailed information on Olympic athletes and their performances over a span of 120 years. Each instance in the dataset corresponds to an individual athlete competing in an Olympic event. The dataset contains the following key attributes:
 
-* Omid Khan
-* Grant Itow
-* Evan Wall 
+- **ID**: Unique identifier for each athlete
+- **Name**: Athlete's full name
+- **Sex**: Gender of the athlete (M or F)
+- **Age**: Age of the athlete during the event (in years)
+- **Height**: Height of the athlete (in centimeters)
+- **Weight**: Weight of the athlete (in kilograms)
+- **Team**: The team or country the athlete represents
+- **NOC**: National Olympic Committee code for the team
+- **Games**: The year and season of the Olympic Games (e.g., "2016 Summer")
+- **Year**: The year of the Olympic Games
+- **Season**: The season of the Olympic Games (Summer or Winter)
+- **City**: The host city of the Olympic Games
+- **Sport**: The sport the athlete competed in
+- **Event**: The specific event the athlete participated in
+- **Medal**: The medal the athlete won (Gold, Silver, Bronze, or NA if no medal)
 
-The proposal outlines the goals, methodologies, deliverables, and tools that will support the successful completion of the 125 years of Summer Olympics Analysis.
+## Goals
 
-# **Key Tasks and Components**
+1. **Data Exploration and Preprocessing**: 
+   - Explore the dataset to understand the structure and key characteristics.
+   - Handle missing data and ensure data consistency for analysis.
 
-### **Goals:**
+2. **Question Development**:
+   - Develop and explore key questions based on the dataset. Some example questions might include:
+     - Which countries have won the most medals over time?
+     - How has the participation of female athletes evolved?
+     - What are the trends in athlete height and weight across different sports?
 
-1. **Data Exploration and Preprocessing:** Dive into the Summer Olympic Games dataset to understand its key features, clean the data, and engineer new variables that might impact medal predictions.
+3. **Insights and Reporting**:
+   - Generate insights based on the data exploration.
+   - Create visualizations to support the findings and provide a clear narrative of the trends observed.
 
-2. **Hypothesis Development:** Formulate hypotheses based on historical trends in medal counts, focusing on factors like host country advantage, participation rates, and economic status of countries.
+## Procedure
 
-3. **Model Development and Evaluation:** Train and evaluate multiple predictive models, selecting the most accurate model based on validation metrics.
+1. **Data Exploration**:
+   - Load the dataset and perform an initial exploration to understand the scope and limitations.
+   - Analyze key variables like `Medal`, `Team`, `Sport`, `Sex`, and `Year` to identify trends and patterns.
 
-4. **Insights and Reporting:** Identify significant factors influencing medal counts and generate comprehensive reports on model performance and historical trends.
+2. **Data Cleaning**:
+   - Handle missing values in attributes such as `Age`, `Height`, `Weight`, and `Medal`.
+   - Ensure the dataset is in a clean format suitable for further analysis.
 
-### **Procedure:**
+3. **Feature Analysis**:
+   - Explore the distribution of medals by country, sport, and gender.
+   - Investigate trends over time, such as changes in athlete demographics and the growth of specific sports.
 
-1. **Data Exploration:**
-   * Load the dataset from CSV files and examine its structure.
-   * Handle any missing values and perform initial exploration of key variables like medal counts and participating countries.
+4. **Visualization**:
+   - Use Altair to create interactive visualizations that illustrate key insights from the data.
+   - Develop charts that allow users to explore different aspects of the data, such as medal counts, athlete participation, and event popularity.
 
-2. **Feature Engineering:**
-   * Create new features, such as total medal counts or medals per capita, to better capture trends.
-   * Prepare the data for machine learning by encoding categorical variables and normalizing numerical ones.
+## Tools and Technologies
 
-3. **PostgreSQL Integration:**
-   * After preprocessing, store the cleaned and transformed data in a PostgreSQL database.
-   * Use PostgreSQL to efficiently query and manage large volumes of Olympic data, enabling more complex analysis.
+- **Programming Language**: Python 
+- **Libraries**:
+  - **Data Processing**: Pandas, NumPy
+  - **Visualization**: Altair
+- **Software**:
+  - Visual Studio Code/Jupyter Notebook for data exploration and visualization
 
-4. **Machine Learning & Model Selection:**
-   * Load the processed data from PostgreSQL.
-   * Split the data into training and validation sets, train different models (e.g., linear regression, decision trees), and compare their performance.   
-   * Choose the best model based on accuracy and other relevant metrics.
+## Challenges and Considerations
 
-5. **Model Prediction:**
-   * Generate medal count predictions for future Olympic Games using the selected model.
+1. **Data Imbalance**: Certain countries and sports may dominate the dataset, which could skew the analysis. Address this by normalizing data where appropriate.
 
-## **Conclusion:**
+2. **Historical Data Consistency**: Ensure that historical changes, such as the introduction of new sports or events, are considered when analyzing trends.
 
-This project leverages machine learning to predict the distribution of medals in future Olympic Games, providing insights into the factors that influence a country’s success. By comparing multiple models and selecting the best-performing one, the project aims to develop a robust predictive system while uncovering the trends and dynamics of the Summer Olympics.
+3. **Visualization Complexity**: Creating visualizations that are both informative and easy to interpret can be challenging, especially when dealing with large datasets.
 
----
+## Expected Outcomes
 
-## **Data, Tools, Techniques, and Challenges**
+1. **Detailed Insights**: Gain a deeper understanding of Olympic history, medal distribution, and athlete demographics.
+2. **Interactive Visualizations**: Develop a series of interactive visualizations that allow users to explore the data and uncover their own insights.
+3. **Comprehensive Reporting**: Provide a clear and concise report that highlights the most interesting findings and supports them with data-driven evidence.
 
-### **Dataset Description:**
-
-The dataset used in this project is derived from historical data on the Summer Olympic Games, capturing key information about participating countries, host cities, and medal distributions. The dataset includes the following columns:
-
-* **Year:** The year of the Olympic Games.
-* **Host_country:** The country where the Olympics were held.
-* **Host_city:** The city that hosted the event.
-* **Country_Name:** The name of the participating country.
-* **Country_Code:** The NOC (National Olympic Committee) code for the country.
-* **Gold:** The number of gold medals won by the country.
-* **Silver:** The number of silver medals won by the country.
-* **Bronze:** The number of bronze medals won by the country.
-
-### **Tools and Technologies:**
-
-* **Programming Language:** Python 
-* **Libraries:**
-  * **Data Processing:** Pandas, NumPy
-  * **Visualization:** Altair
-  * **Machine Learning:** Scikit-learn
-* **Database:**
-  * **PostgreSQL:** For storing and managing the Olympic data.
-* **Software:**
-  * Visual Studio Code/Jupyter Notebook for exploratory analysis and modeling.
-
-### **Potential Challenges:**
-
-1. **Imbalanced Data:** Countries with larger populations or higher GDPs may dominate medal counts, leading to skewed predictions. Techniques like balanced sampling or weighting may be needed.
-2. **Feature Selection:** Identifying which factors (e.g., host country advantage) most strongly influence medal counts will require careful feature engineering and analysis.
-3. **Overfitting:** Monitoring for overfitting through cross-validation and hyperparameter tuning will be crucial to ensure the model generalizes well to future Olympic Games.
-
-### **Expected Outcomes:**
-
-1. **Prediction Accuracy:** Aim to achieve a high level of accuracy in predicting medal counts for future Olympic Games.
-2. **Insights into Olympic Success:** Provide detailed insights into the factors that contribute to a country’s success at the Summer Olympics, including any emerging trends.
 
