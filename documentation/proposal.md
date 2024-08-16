@@ -1,4 +1,4 @@
-# Olympic Games Data Exploration
+# Summer Olympic Games Data Exploration
 
 ## Project Overview
 
