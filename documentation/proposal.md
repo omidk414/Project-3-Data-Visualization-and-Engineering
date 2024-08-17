@@ -15,17 +15,12 @@ The team of data scientists working on this project includes:
 
 The dataset provides detailed information on Olympic athletes and their performances over a span of 120 years. Each instance in the dataset corresponds to an individual athlete competing in an Olympic event. The dataset contains the following key attributes:
 
-- **ID**: Unique identifier for each athlete
-- **Name**: Athlete's full name
+- **Country**: The team or country the athlete represents
 - **Sex**: Gender of the athlete (M or F)
-- **Age**: Age of the athlete during the event (in years)
-- **Height**: Height of the athlete (in centimeters)
-- **Weight**: Weight of the athlete (in kilograms)
 - **Team**: The team or country the athlete represents
 - **NOC**: National Olympic Committee code for the team
 - **Games**: The year and season of the Olympic Games (e.g., "2016 Summer")
 - **Year**: The year of the Olympic Games
-- **Season**: The season of the Olympic Games (Summer or Winter)
 - **City**: The host city of the Olympic Games
 - **Sport**: The sport the athlete competed in
 - **Event**: The specific event the athlete participated in
@@ -40,8 +35,8 @@ The dataset provides detailed information on Olympic athletes and their performa
 2. **Question Development**:
    - Develop and explore key questions based on the dataset. Some example questions might include:
      - Which countries have won the most medals over time?
-     - How has the participation of female athletes evolved?
-     - What are the trends in athlete height and weight across different sports?
+     - How does GDP affect the number of medals?
+     - What are the trends in athlete height and weight across different sports?     
 
 3. **Insights and Reporting**:
    - Generate insights based on the data exploration.
@@ -51,7 +46,7 @@ The dataset provides detailed information on Olympic athletes and their performa
 
 1. **Data Exploration**:
    - Load the dataset and perform an initial exploration to understand the scope and limitations.
-   - Analyze key variables like `Medal`, `Team`, `Sport`, `Sex`, and `Year` to identify trends and patterns.
+   - Analyze key variables like `Medal`, `Country`, `GDP`, `Sex`, and `Year` to identify trends and patterns.
 
 2. **Data Cleaning**:
    - Handle missing values in attributes such as `Age`, `Height`, `Weight`, and `Medal`.
