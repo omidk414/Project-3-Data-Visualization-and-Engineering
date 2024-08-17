@@ -24,7 +24,7 @@ The dataset provides detailed information on Olympic athletes and their performa
 - **City**: The host city of the Olympic Games
 - **Sport**: The sport the athlete competed in
 - **Event**: The specific event the athlete participated in
-- **Medal**: The medal the athlete won (Gold, Silver, Bronze, or NA if no medal)
+- **Medal**: The medal the country won (Gold, Silver, Bronze, or NA if no medal)
 
 ## Goals
 
@@ -81,7 +81,7 @@ The dataset provides detailed information on Olympic athletes and their performa
 ## Expected Outcomes
 
 1. **Detailed Insights**: Gain a deeper understanding of Olympic history, medal distribution, and athlete demographics.
-2. **Interactive Visualizations**: Develop a series of interactive visualizations that allow users to explore the data and uncover their own insights.
+2. **Interactive Visualizations**: Develop a interactive map visualizations that allow users to explore the medal count, year, and gdp.
 3. **Comprehensive Reporting**: Provide a clear and concise report that highlights the most interesting findings and supports them with data-driven evidence.
 
 
