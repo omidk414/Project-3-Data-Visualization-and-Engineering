@@ -4,6 +4,13 @@
 
 This project involves exploring a comprehensive dataset of the modern-day Olympic Games, covering events from the 1896 to 2020. The dataset includes over 271,000 instances and 15 attributes, detailing individual athletes and their performances. The goal is to analyze this data, generate insights, and answer key questions about trends, medal distributions, and athlete characteristics across different Olympic Games.
 
+## Project Team
+
+The team of data scientists working on this project includes:
+* Omid Khan
+* Grant Itow
+* Evan Wall
+
 ## Dataset Description
 
 The dataset provides detailed information on Olympic athletes and their performances over a span of 120 years. Each instance in the dataset corresponds to an individual athlete competing in an Olympic event. The dataset contains the following key attributes:
@@ -64,6 +71,7 @@ The dataset provides detailed information on Olympic athletes and their performa
 - **Libraries**:
   - **Data Processing**: Pandas, NumPy
   - **Visualization**: Altair
+  - **Database**: DuckDB
 - **Software**:
   - Visual Studio Code/Jupyter Notebook for data exploration and visualization
 
