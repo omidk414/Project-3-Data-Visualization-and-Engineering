@@ -46,6 +46,8 @@ function loadData(year) {
                 }
             });
         });
+    }).catch(function(error) {
+        console.error("Error loading the medal data:", error);
     });
 }
 
@@ -53,24 +55,20 @@ function loadData(year) {
 document.getElementById("year-slider").addEventListener("input", function() {
     var year = this.value;
     document.getElementById("year-display").textContent = year;
+    document.getElementById("year-input").value = year;
     loadData(year);
-});
-
-// Handle search button click
-document.getElementById("search-button").addEventListener("click", function() {
-    var year = document.getElementById("year-input").value;
-    if (year >= 1896 && year <= 2020 && year % 4 === 0) {
-        document.getElementById("year-slider").value = year;
-        document.getElementById("year-display").textContent = year;
-        loadData(year);
-    } else {
-        alert("Please enter a valid Olympic year.");
-    }
 });
 
 // Handle enter key press in the input box
 document.getElementById("year-input").addEventListener("keypress", function(e) {
     if (e.key === 'Enter') {
-        document.getElementById("search-button").click();
+        var year = this.value;
+        if (year >= 1896 && year <= 2020 && year % 4 === 0) {
+            document.getElementById("year-slider").value = year;
+            document.getElementById("year-display").textContent = year;
+            loadData(year);
+        } else {
+            alert("Please enter a valid Olympic year.");
+        }
     }
 });
