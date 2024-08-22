@@ -3,7 +3,18 @@
   width: 100%;
 }
 
-input[type="range"] {
-  width: 100%;
-  margin: 20px 0;
+#controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+#yearSlider {
+  width: 200px;
+  margin-right: 10px;
+}
+
+#yearInput {
+  width: 60px;
 }

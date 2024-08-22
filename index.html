@@ -4,31 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olympic Medals by Country</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 80vh;
-            width: 100%;
-        }
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Choropleth Map</title>
 
-        input[type="range"] {
-            width: 100%;
-            margin: 20px 0;
-        }
-    </style>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 
 <body>
-    <h1>Olympic Medals by Country</h1>
-    <div id="map"></div>
-    <div id="slider-container">
-        <label for="year-slider">Select Year: </label>
-        <input type="range" id="year-slider">
-        <span id="year-label"></span>
+    <h2>Olympic Medals by Country</h2>
+
+    <div id="controls">
+        <input type="range" id="yearSlider" min="0" max="27" step="1" value="0">  <!-- Adjust max to validYears length - 1 -->
+        <input type="number" id="yearInput" min="1896" max="2020" value="1896">
     </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- D3.js for data manipulation -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Custom JS -->
     <script src="static/js/logic.js"></script>
 </body>
 
