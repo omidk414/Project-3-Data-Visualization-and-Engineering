@@ -5,31 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Choropleth Map</title>
-
+    <title>Olympic Medals Map</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <style>
+        #map { height: 80vh; }
+        #controls { margin: 10px; }
+        #year-input, #year-slider { margin: 5px; }
+    </style>
 </head>
 
 <body>
-    <h2>Olympic Medals by Country</h2>
-
+    <h1>Olympic Medals Map</h1>
     <div id="controls">
-        <input type="range" id="yearSlider" min="0" max="27" step="1" value="0">  <!-- Adjust max to validYears length - 1 -->
-        <input type="number" id="yearInput" min="1896" max="2020" value="1896">
+        <input type="number" id="year-input" min="1896" max="2020" step="4" value="1896" />
+        <input type="range" id="year-slider" min="1896" max="2020" step="4" value="1896" />
+        <span id="year-display">1896</span>
     </div>
-
     <div id="map"></div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <!-- D3.js for data manipulation -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    
     <!-- Custom JS -->
     <script src="static/js/logic.js"></script>
 </body>

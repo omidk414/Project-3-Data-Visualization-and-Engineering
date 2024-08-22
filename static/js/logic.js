@@ -1,77 +1,76 @@
 // Initialize the map
 var map = L.map('map').setView([20, 0], 2);  // Center the map
 
-// Add a tile layer (map background)
+// Add tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
 }).addTo(map);
 
-// List of valid Olympic years
-var validYears = [1896, 1900, 1904, 1908, 1912, 1920, 1924, 1928, 1932, 1936, 
-                  1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 
-                  1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020];
+// Load and display GeoJSON data
+d3.json("data/world.geo.json").then(function(data) {
+    // Store GeoJSON data globally to use later for filtering
+    window.geoJsonData = data;
 
-// Initialize the map with the default year
-loadData(1896);
+    L.geoJson(data, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h3>" + feature.properties.name + "</h3>");
+        }
+    }).addTo(map);
 
-// Function to load and plot data
+    // Initial data load
+    loadData(1896);
+});
+
+// Load and display markers for the selected year
 function loadData(year) {
     var filePath = `data/medal_data/medal_data_${year}.json`;
 
     d3.json(filePath).then(function(medalData) {
+        // Clear existing markers
+        if (window.markers) {
+            window.markers.clearLayers();
+        }
+
+        // Create a new layer group for markers
+        window.markers = L.layerGroup().addTo(map);
+
+        // Load latitude and longitude data
         d3.csv("data/World_lat_lon.csv").then(function(latLonData) {
+            var medalCountries = new Set(medalData.map(d => d.Country_Name));
+
             latLonData.forEach(function(d) {
-                var countryMedals = medalData.find(m => m.Country_Name === d.Country);
-                var medalCount = countryMedals ? countryMedals.Total_Medals : "N/A";
-                
-                L.marker([d.Lat, d.Long])
-                    .bindPopup(`<h3>${d.Country}</h3><p>Medal Count: ${medalCount}</p>`)
-                    .addTo(map);
+                if (medalCountries.has(d.Country)) {
+                    L.marker([d.Lat, d.Long])
+                        .bindPopup(`<h3>${d.Country}</h3><p>Medal Count: ${medalData.find(md => md.Country_Name === d.Country)?.Total_Medals || '0'}</p>`)
+                        .addTo(window.markers);
+                }
             });
         });
     });
 }
 
-// Handle slider changes
-document.getElementById('yearSlider').addEventListener('input', function() {
-    var selectedYearIndex = this.value;
-    var selectedYear = validYears[selectedYearIndex];
-    document.getElementById('yearInput').value = selectedYear;
-    updateMap(selectedYear);
+// Handle slider input
+document.getElementById("year-slider").addEventListener("input", function() {
+    var year = this.value;
+    document.getElementById("year-display").textContent = year;
+    loadData(year);
 });
 
-// Handle input box changes
-document.getElementById('yearInput').addEventListener('change', function() {
-    var inputYear = parseInt(this.value);
-    if (validYears.includes(inputYear)) {
-        var selectedYearIndex = validYears.indexOf(inputYear);
-        document.getElementById('yearSlider').value = selectedYearIndex;
-        updateMap(inputYear);
+// Handle search button click
+document.getElementById("search-button").addEventListener("click", function() {
+    var year = document.getElementById("year-input").value;
+    if (year >= 1896 && year <= 2020 && year % 4 === 0) {
+        document.getElementById("year-slider").value = year;
+        document.getElementById("year-display").textContent = year;
+        loadData(year);
     } else {
         alert("Please enter a valid Olympic year.");
-        this.value = validYears[document.getElementById('yearSlider').value];
     }
 });
 
-// Enable mouse wheel to change the slider value
-document.getElementById('yearSlider').addEventListener('wheel', function(event) {
-    event.preventDefault();
-    var currentIndex = parseInt(this.value);
-    var step = event.deltaY < 0 ? 1 : -1;
-    var newIndex = currentIndex + step;
-    if (newIndex >= 0 && newIndex < validYears.length) {
-        this.value = newIndex;
-        document.getElementById('yearInput').value = validYears[newIndex];
-        updateMap(validYears[newIndex]);
+// Handle enter key press in the input box
+document.getElementById("year-input").addEventListener("keypress", function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById("search-button").click();
     }
 });
-
-// Function to update the map based on the selected year
-function updateMap(year) {
-    map.eachLayer(function(layer) {
-        if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-        }
-    });
-    loadData(year);
-}
