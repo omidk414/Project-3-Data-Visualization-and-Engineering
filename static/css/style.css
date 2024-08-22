@@ -1,26 +1,9 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  #map {
-    height: 90vh;
-    width: 100%;
-  }
-  
-  #yearSliderContainer {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  #yearSlider {
-    width: 300px;
-  }
-  
+#map {
+  height: 80vh;
+  width: 100%;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 20px 0;
+}

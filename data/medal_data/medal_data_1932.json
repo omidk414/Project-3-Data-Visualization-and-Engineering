@@ -1,0 +1,110 @@
+[
+    {
+        "Country_Name": "Canada",
+        "Total_Medals": 15.0
+    },
+    {
+        "Country_Name": "Philippines",
+        "Total_Medals": 3.0
+    },
+    {
+        "Country_Name": "New Zealand",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Finland",
+        "Total_Medals": 25.0
+    },
+    {
+        "Country_Name": "France",
+        "Total_Medals": 19.0
+    },
+    {
+        "Country_Name": "Italy",
+        "Total_Medals": 36.0
+    },
+    {
+        "Country_Name": "Poland",
+        "Total_Medals": 7.0
+    },
+    {
+        "Country_Name": "Japan",
+        "Total_Medals": 18.0
+    },
+    {
+        "Country_Name": "Switzerland",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Ireland",
+        "Total_Medals": 2.0
+    },
+    {
+        "Country_Name": "India",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Great Britain",
+        "Total_Medals": 16.0
+    },
+    {
+        "Country_Name": "Hungary",
+        "Total_Medals": 15.0
+    },
+    {
+        "Country_Name": "South Africa",
+        "Total_Medals": 5.0
+    },
+    {
+        "Country_Name": "Uruguay",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Latvia",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Argentina",
+        "Total_Medals": 4.0
+    },
+    {
+        "Country_Name": "Sweden",
+        "Total_Medals": 23.0
+    },
+    {
+        "Country_Name": "Austria",
+        "Total_Medals": 5.0
+    },
+    {
+        "Country_Name": "Australia",
+        "Total_Medals": 5.0
+    },
+    {
+        "Country_Name": "Germany",
+        "Total_Medals": 20.0
+    },
+    {
+        "Country_Name": "Netherlands",
+        "Total_Medals": 7.0
+    },
+    {
+        "Country_Name": "United States Of America",
+        "Total_Medals": 103.0
+    },
+    {
+        "Country_Name": "Spain",
+        "Total_Medals": 1.0
+    },
+    {
+        "Country_Name": "Czechoslovakia",
+        "Total_Medals": 4.0
+    },
+    {
+        "Country_Name": "Mexico",
+        "Total_Medals": 2.0
+    },
+    {
+        "Country_Name": "Denmark",
+        "Total_Medals": 6.0
+    }
+]

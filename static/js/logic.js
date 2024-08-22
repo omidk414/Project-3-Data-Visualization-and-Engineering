@@ -1,50 +1,71 @@
 // Initialize the map
-const map = L.map('map').setView([20, 0], 2);
+var map = L.map('map').setView([20, 0], 2);  // Center the map
 
-// Add a tile layer to the map (for background)
+// Load GeoJSON data for the map
+d3.json("data/world.geo.json").then(function(data) {
+    L.geoJson(data, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h3>" + feature.properties.name + "</h3>");
+        }
+    }).addTo(map);
+});
+
+// Add a tile layer (map background)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    maxZoom: 19,
 }).addTo(map);
 
-// Function to fetch data and update the map
+// Function to update the map based on the selected year
 function updateMap(year) {
-  fetch(`/data/${year}`).then(response => response.json()).then(data => {
-    // Assuming the data includes geojson for countries and medal counts
-    L.geoJson(data, {
-      style: function (feature) {
-        return {
-          fillColor: getColor(feature.properties.medals),
-          weight: 2,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.7
-        };
-      },
-      onEachFeature: function (feature, layer) {
-        layer.bindPopup(`<h4>${feature.properties.name}</h4><p>Total Medals: ${feature.properties.medals}</p>`);
-      }
-    }).addTo(map);
-  });
+    // Clear existing pins
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Load and plot data for the selected year
+    d3.csv("data/World_lat_lon.csv").then(function(latLonData) {
+        d3.json(`data/medal_data/medal_data_${year}.json`).then(function(medalData) {
+            latLonData.forEach(function(d) {
+                let medalInfo = medalData.find(m => m.Country_Name === d.Country);
+                let medalCount = medalInfo ? medalInfo.Total_Medals : "N/A";
+
+                L.marker([d.Lat, d.Long])
+                    .bindPopup(`<h3>${d.Country}</h3><p>Medal Count: ${medalCount}</p>`)
+                    .addTo(map);
+            });
+        });
+    });
 }
 
-// Function to get color based on medals
-function getColor(d) {
-  return d > 100 ? '#800026' :
-         d > 50  ? '#BD0026' :
-         d > 20  ? '#E31A1C' :
-         d > 10  ? '#FC4E2A' :
-         d > 5   ? '#FD8D3C' :
-         d > 0   ? '#FEB24C' :
-                   '#FFEDA0';
-}
+// Initialize the slider with available years
+var years = [1896, 1900, 1904, 1908, 1912];  // Add all years available in your JSON files
 
-// Initial load for the first year
-updateMap(1896);
+var slider = d3.select("body")
+    .append("input")
+    .attr("type", "range")
+    .attr("min", d3.min(years))
+    .attr("max", d3.max(years))
+    .attr("step", 1)
+    .attr("value", d3.min(years))
+    .on("input", function() {
+        var selectedYear = this.value;
+        updateMap(selectedYear);
+    });
 
-// Handle slider input to update year
-document.getElementById('yearSlider').addEventListener('input', function(e) {
-  const year = e.target.value;
-  document.getElementById('selectedYear').textContent = year;
-  updateMap(year);
+// Display the current year next to the slider
+d3.select("body")
+    .append("div")
+    .attr("id", "year-label")
+    .text(d3.min(years));
+
+// Set initial map state to the first year
+updateMap(years[0]);
+
+// Update the year label when the slider changes
+slider.on("input", function() {
+    var selectedYear = this.value;
+    d3.select("#year-label").text(selectedYear);
+    updateMap(selectedYear);
 });

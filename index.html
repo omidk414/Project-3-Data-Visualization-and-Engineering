@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaflet Test</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>#map { height: 100vh; }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Medals by Country</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 20px 0;
+        }
+    </style>
 </head>
+
 <body>
-  <div id="map"></div>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([20, 0], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-  </script>
+    <h1>Olympic Medals by Country</h1>
+    <div id="map"></div>
+    <div id="slider-container">
+        <label for="year-slider">Select Year: </label>
+        <input type="range" id="year-slider">
+        <span id="year-label"></span>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="static/js/logic.js"></script>
 </body>
+
 </html>
