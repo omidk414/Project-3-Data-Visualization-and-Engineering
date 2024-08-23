@@ -7,50 +7,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Load and display GeoJSON data
-d3.json("/static/data/countries.geo.json").then(function(data) {
-    // Store GeoJSON data globally to use later for filtering
-    window.geoJsonData = data;
+fetch("/data/countries")
+    .then(response => response.json())
+    .then(data => {
+        window.geoJsonData = data;
 
-    // Add initial GeoJSON layer
-    L.geoJson(data, {
-        style: function(feature) {
-            return {
-                fillColor: '#ccc', // Default color
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7
-            };
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup("<h3>" + feature.properties.name + "</h3>");
-        }
-    }).addTo(map);
-
-    // Initial data load
-    loadData(1896);
-});
-
-// Load and display shaded countries for the selected year
-function loadData(year) {
-    var filePath = `/static/data/medal_data/medal_data_${year}.json`;
-
-    d3.json(filePath).then(function(medalData) {
-        // Clear existing layers if needed
-        if (window.shadedCountries) {
-            window.shadedCountries.clearLayers();
-        }
-
-        // Create a new layer group for shaded countries
-        window.shadedCountries = L.geoJson(window.geoJsonData, {
+        // Add initial GeoJSON layer
+        L.geoJson(data, {
             style: function(feature) {
-                // Get the medal count for the country
-                var medalCount = medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || 0;
-
-                // Define color based on medal count
                 return {
-                    fillColor: getColor(medalCount),
+                    fillColor: '#ccc', // Default color
                     weight: 2,
                     opacity: 1,
                     color: 'white',
@@ -59,13 +25,44 @@ function loadData(year) {
                 };
             },
             onEachFeature: function(feature, layer) {
-                layer.bindPopup("<h3>" + feature.properties.name + "</h3><p>Medal Count: " + (medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || '0') + "</p>");
+                layer.bindPopup("<h3>" + feature.properties.name + "</h3>");
             }
         }).addTo(map);
 
-        // Update the legend
-        updateLegend(medalData);
+        // Initial data load
+        loadData(1896);
     });
+
+// Load and display shaded countries for the selected year
+function loadData(year) {
+    var filePath = `/data/medal_data/${year}`;
+
+    fetch(filePath)
+        .then(response => response.json())
+        .then(medalData => {
+            if (window.shadedCountries) {
+                window.shadedCountries.clearLayers();
+            }
+
+            window.shadedCountries = L.geoJson(window.geoJsonData, {
+                style: function(feature) {
+                    var medalCount = medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || 0;
+                    return {
+                        fillColor: getColor(medalCount),
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7
+                    };
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup("<h3>" + feature.properties.name + "</h3><p>Medal Count: " + (medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || '0') + "</p>");
+                }
+            }).addTo(map);
+
+            updateLegend(medalData);
+        });
 }
 
 // Define color scale
@@ -80,7 +77,6 @@ function getColor(medalCount) {
 
 // Update legend based on medal count
 function updateLegend(medalData) {
-    // Remove existing legend if present
     if (window.legend) {
         map.removeControl(window.legend);
     }
@@ -92,10 +88,8 @@ function updateLegend(medalData) {
             grades = [1, 5, 10, 20, 50],
             labels = [];
 
-        // Add legend title
         div.innerHTML += '<b>Medal Count</b><br>';
 
-        // Loop through the grades and add color boxes
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
