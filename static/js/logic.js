@@ -7,11 +7,22 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Load and display GeoJSON data
-d3.json("data/world.geo.json").then(function(data) {
+d3.json("/static/data/countries.geo.json").then(function(data) {
     // Store GeoJSON data globally to use later for filtering
     window.geoJsonData = data;
 
+    // Add initial GeoJSON layer
     L.geoJson(data, {
+        style: function(feature) {
+            return {
+                fillColor: '#ccc', // Default color
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            };
+        },
         onEachFeature: function(feature, layer) {
             layer.bindPopup("<h3>" + feature.properties.name + "</h3>");
         }
@@ -21,41 +32,87 @@ d3.json("data/world.geo.json").then(function(data) {
     loadData(1896);
 });
 
-// Load and display markers for the selected year
+// Load and display shaded countries for the selected year
 function loadData(year) {
-    var filePath = `data/medal_data/medal_data_${year}.json`;
+    var filePath = `/static/data/medal_data/medal_data_${year}.json`;
 
     d3.json(filePath).then(function(medalData) {
-        // Clear existing markers
-        if (window.markers) {
-            window.markers.clearLayers();
+        // Clear existing layers if needed
+        if (window.shadedCountries) {
+            window.shadedCountries.clearLayers();
         }
 
-        // Create a new layer group for markers
-        window.markers = L.layerGroup().addTo(map);
+        // Create a new layer group for shaded countries
+        window.shadedCountries = L.geoJson(window.geoJsonData, {
+            style: function(feature) {
+                // Get the medal count for the country
+                var medalCount = medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || 0;
 
-        // Load latitude and longitude data
-        d3.csv("data/World_lat_lon.csv").then(function(latLonData) {
-            var medalCountries = new Set(medalData.map(d => d.Country_Name));
+                // Define color based on medal count
+                return {
+                    fillColor: getColor(medalCount),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup("<h3>" + feature.properties.name + "</h3><p>Medal Count: " + (medalData.find(d => d.Country_Name === feature.properties.name)?.Total_Medals || '0') + "</p>");
+            }
+        }).addTo(map);
 
-            latLonData.forEach(function(d) {
-                if (medalCountries.has(d.Country)) {
-                    L.marker([d.Lat, d.Long])
-                        .bindPopup(`<h3>${d.Country}</h3><p>Medal Count: ${medalData.find(md => md.Country_Name === d.Country)?.Total_Medals || '0'}</p>`)
-                        .addTo(window.markers);
-                }
-            });
-        });
-    }).catch(function(error) {
-        console.error("Error loading the medal data:", error);
+        // Update the legend
+        updateLegend(medalData);
     });
+}
+
+// Define color scale
+function getColor(medalCount) {
+    return medalCount > 50 ? '#800026' :
+           medalCount > 20 ? '#BD0026' :
+           medalCount > 10 ? '#E31A1C' :
+           medalCount > 5  ? '#FC4E2A' :
+           medalCount > 1  ? '#FD8D3C' :
+                             '#FED976';
+}
+
+// Update legend based on medal count
+function updateLegend(medalData) {
+    // Remove existing legend if present
+    if (window.legend) {
+        map.removeControl(window.legend);
+    }
+
+    window.legend = L.control({position: 'bottomright'});
+
+    window.legend.onAdd = function () {
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [1, 5, 10, 20, 50],
+            labels = [];
+
+        // Add legend title
+        div.innerHTML += '<b>Medal Count</b><br>';
+
+        // Loop through the grades and add color boxes
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+
+    window.legend.addTo(map);
 }
 
 // Handle slider input
 document.getElementById("year-slider").addEventListener("input", function() {
     var year = this.value;
     document.getElementById("year-display").textContent = year;
-    document.getElementById("year-input").value = year;
+    document.getElementById("year-input").value = year; // Sync input box with slider
     loadData(year);
 });
 
@@ -64,7 +121,7 @@ document.getElementById("year-input").addEventListener("keypress", function(e) {
     if (e.key === 'Enter') {
         var year = this.value;
         if (year >= 1896 && year <= 2020 && year % 4 === 0) {
-            document.getElementById("year-slider").value = year;
+            document.getElementById("year-slider").value = year; // Sync slider with input box
             document.getElementById("year-display").textContent = year;
             loadData(year);
         } else {

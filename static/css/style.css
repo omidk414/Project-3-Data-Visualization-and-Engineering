@@ -18,3 +18,25 @@
 #yearInput {
   width: 60px;
 }
+
+.info.legend {
+  background: white;
+  padding: 10px; /* Adjusted padding for better spacing */
+  font: 13px Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  line-height: 1.5; /* Ensure text and boxes are well spaced */
+}
+
+.info.legend i {
+  width: 20px;
+  height: 20px;
+  display: inline-block; /* Ensures color boxes align horizontally */
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.info.legend span {
+  display: inline-block; /* Ensures text aligns with color boxes */
+  vertical-align: top;
+}
