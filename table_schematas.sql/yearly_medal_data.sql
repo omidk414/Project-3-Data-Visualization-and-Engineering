@@ -1,0 +1,1 @@
+SELECT * FROM yearly_medal_data

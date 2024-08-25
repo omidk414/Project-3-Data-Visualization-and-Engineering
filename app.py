@@ -33,6 +33,9 @@ def get_medal_data(year):
             SELECT 
                 CASE
                     WHEN country_name = 'United States' THEN 'United States Of America'
+                    WHEN country_name = 'Republic of China' THEN 'China'
+                    WHEN country_name = 'Soviet Union' THEN 'Russia'
+                    WHEN country_name = 'Russian Empire' THEN 'Russia'
                     ELSE country_name
                 END AS country_name,
                 SUM(gold) AS gold, 
