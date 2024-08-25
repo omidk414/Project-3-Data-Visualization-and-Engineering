@@ -19,13 +19,17 @@ function loadMedalData(year) {
         .then(response => response.json())
         .then(data => {
             data.forEach(country => {
+                // Convert latitude and longitude to numbers
+                var lat = parseFloat(country.latitude);
+                var lng = parseFloat(country.longitude);
+
                 // Create a marker for each country
-                var marker = L.marker([country.latitude, country.longitude])
+                var marker = L.marker([lat, lng])
                     .bindPopup(`<h3>${country.country_name}</h3>
-                                <p>Gold: ${country.Gold}</p>
-                                <p>Silver: ${country.Silver}</p>
-                                <p>Bronze: ${country.Bronze}</p>
-                                <p>Total: ${country.Total_Medals}</p>`);
+                                <p>Gold: ${country.gold}</p>
+                                <p>Silver: ${country.silver}</p>
+                                <p>Bronze: ${country.bronze}</p>
+                                <p>Total: ${country.total_medals}</p>`);
                 marker.addTo(markersLayer);
             });
         })
@@ -45,7 +49,7 @@ document.getElementById("year-slider").addEventListener("input", function() {
 // Handle enter key press in the input box
 document.getElementById("year-input").addEventListener("keypress", function(e) {
     if (e.key === 'Enter') {
-        var year = this.value;
+        var year = parseInt(this.value, 10);  // Convert to integer
         if (year >= 1896 && year <= 2020 && year % 4 === 0) {
             document.getElementById("year-slider").value = year;
             document.getElementById("year-display").textContent = year;
@@ -56,5 +60,13 @@ document.getElementById("year-input").addEventListener("keypress", function(e) {
     }
 });
 
-// Initial data load for the first year
+// Initialize slider and input with the default year
+function initializeYearControls(defaultYear) {
+    document.getElementById("year-slider").value = defaultYear;
+    document.getElementById("year-display").textContent = defaultYear;
+    document.getElementById("year-input").value = defaultYear;
+}
+
+// Initial data load for the first year and set initial values
+initializeYearControls(1896);
 loadMedalData(1896);

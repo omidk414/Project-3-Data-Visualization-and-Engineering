@@ -24,10 +24,10 @@ def get_medal_data(year):
     # Adjusted query to include only countries that participated in the Olympics for the selected year
     query = text("""
         SELECT c.country_name, c.latitude, c.longitude, 
-               COALESCE(SUM(m.gold), 0) AS Gold, 
-               COALESCE(SUM(m.silver), 0) AS Silver, 
-               COALESCE(SUM(m.bronze), 0) AS Bronze, 
-               COALESCE(SUM(m.gold) + SUM(m.silver) + SUM(m.bronze), 0) AS Total_Medals
+               COALESCE(m.gold, 0) AS Gold, 
+               COALESCE(m.silver, 0) AS Silver, 
+               COALESCE(m.bronze, 0) AS Bronze, 
+               (COALESCE(m.gold, 0) + COALESCE(m.silver, 0) + COALESCE(m.bronze, 0)) AS Total_Medals
         FROM countries c
         INNER JOIN (
             SELECT 
@@ -42,7 +42,8 @@ def get_medal_data(year):
             WHERE year = :year
             GROUP BY country_name
         ) m ON c.country_name = m.country_name
-        GROUP BY c.country_name, c.latitude, c.longitude
+        WHERE m.gold > 0 OR m.silver > 0 OR m.bronze > 0  -- Ensure only countries with medals are shown
+        GROUP BY c.country_name, c.latitude, c.longitude, Gold, Silver, Bronze
     """)
     
     with engine.connect() as conn:
@@ -53,4 +54,3 @@ def get_medal_data(year):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
