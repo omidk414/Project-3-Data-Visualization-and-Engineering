@@ -21,7 +21,11 @@ This project aims to explore and analyze the modern-day Olympic Games dataset, c
 ### Dataset
 
 - **Number of Records**: This project uses a dataset with over 271,000 unique records.
+
+- 
 - **Data Source**: The dataset is sourced from historical Olympic records and includes detailed information on athletes and their performances.
+
+- 
 - **Database Used**: The data is housed in a PostgreSQL database.
 
 ### Database
