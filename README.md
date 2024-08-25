@@ -188,7 +188,7 @@ Grant Itow - grant@owlvericks.com - grant-i
 ## References
 This section provides attribution to the data sources, libraries, and tools that contributed to the successful implementation and documentation of the project.
 - **Data Sources**:
-  - [125 Years of Summer Olympics Analysis & Visualization](https://www.kaggle.com/code/hamdallak/125-years-of-summer-olympics-analysis-visual) – This dataset provides detailed information about Olympic performances and medals over the years, which is utilized for the project analysis and visualizations.
+  - [125 Years of Summer Olympics Analysis & Visualization](https://www.kaggle.com/datasets/ramontanoeiro/summer-olympic-medals-1986-2020?select=Summer_olympic_Medals.csv) – This dataset provides detailed information about Olympic performances and medals over the years, which is utilized for the project analysis and visualizations.
 
 - **External Libraries**:
   - [Flask Documentation](https://flask.palletsprojects.com/) – Official documentation for Flask, the web framework used for building the application.
