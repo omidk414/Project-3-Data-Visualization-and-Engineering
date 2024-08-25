@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project involves exploring a comprehensive dataset of the modern-day Olympic Games, covering events from 1896 to 2020. The dataset includes over 271,000 instances and 15 attributes, detailing individual athletes and their performances. The goal is to analyze this data, generate insights, and answer key questions about trends, medal distributions, and athlete characteristics across different Olympic Games.
+This project involves exploring a comprehensive dataset of the modern-day Olympic Games, covering events from 1896 to 2020. The dataset includes over 271,000 instances and 15 attributes, detailing individual athletes and their performances. The goal is to analyze this data, generate insights, and answer key questions about medal distributions.
 
 ## Project Team
 
@@ -15,7 +15,7 @@ The team of data scientists working on this project includes:
 
 The dataset provides detailed information on Olympic competitors and their performances over a span of 120 years. Each instance in the dataset corresponds to a country and year competing in an Olympic event. The dataset contains the following key attributes:
 
-- **Country**: The team or country the athlete represents
+- **Country**: Country participating in the Olympics
 - **Year**: The year of the Olympic Games
 - **Medal**: The medal the country won (Gold, Silver, Bronze, or NA if no medal)
 
@@ -55,7 +55,7 @@ The dataset provides detailed information on Olympic competitors and their perfo
 
 ## Tools and Technologies
 
-- **Programming Language**: Python 
+- **Programming Language**: Python, SQL 
 - **Libraries**:
   - **Data Processing**: Pandas, NumPy
   - **Visualization**: Altair

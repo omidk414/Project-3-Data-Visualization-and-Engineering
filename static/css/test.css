@@ -1,0 +1,20 @@
+#map {
+    height: 80vh;
+    width: 100%;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#yearSlider {
+    width: 200px;
+    margin-right: 10px;
+}
+
+#yearInput {
+    width: 60px;
+}
