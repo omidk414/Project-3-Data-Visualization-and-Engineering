@@ -165,6 +165,46 @@ def get_choropleth_data(year):
 ```
 ![Chart3](https://github.com/omidk414/Project-3-Data-Visualization-and-Engineering/blob/main/images/Chloropleth_Flask_Image.png)
 
+4. Bubble Chart
+```python
+
+
+    # Query for GDP data for all countries
+    gdp_query = """
+        SELECT country, year, gdp
+        FROM world_gdp
+    """
+    gdp_data = pd.read_sql(gdp_query, engine)
+    
+    # Query for Population data for all countries
+    population_query = """
+        SELECT name AS country, year, total_population
+        FROM world_population
+    """
+    population_data = pd.read_sql(population_query, engine)
+
+    # Query for Olympic Medals data for all countries
+    medal_counts_query = """
+        SELECT country_name AS country, year, SUM(Gold + Silver + Bronze) AS total_medals
+        FROM olympic_medals
+        GROUP BY country_name, year
+    """
+    medals_data = pd.read_sql(medal_counts_query, engine)
+   
+    # Aggregate the data for grouped regions
+    gdp_data = gdp_data.groupby(['country', 'year']).sum().reset_index()
+    population_data = population_data.groupby(['country', 'year']).sum().reset_index()
+    medals_data = medals_data.groupby(['country', 'year']).sum().reset_index()
+    # Pivot the DataFrame to get the desired structure
+    bubble_chart_data = combined_data.pivot_table(index=['country', 'year'], columns='Indicator', values='Value').reset_index()
+
+    # Convert DataFrame to JSON for use in the frontend
+    data_json = bubble_chart_data.to_json(orient='records')
+
+    return render_template('bub_index.html', data=data_json)
+```
+
+
 ## Usability
 The project features several interactive elements to enhance user experience:
 
