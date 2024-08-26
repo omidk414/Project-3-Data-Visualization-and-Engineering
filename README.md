@@ -24,6 +24,7 @@ To get started with this project, follow these steps:
    cd directory
    ```
 2. **Install Dependencies**:
+3. 
    Ensure you have Python and PostgreSQL installed. Install the necessary libraries using the following commands:
    
    - `flask`: Web framework for building the web application.
@@ -32,7 +33,7 @@ To get started with this project, follow these steps:
    - `dotenv`: Library to load environment variables from a `.env` file.
    - `altair`: Declarative statistical visualization library for creating charts and plots.
 
-3. **Setup the PostgreSQL Database**
+4. **Setup the PostgreSQL Database**:
 - Create a PostgreSQL database and load the provided data into it.
      - olympics_medals: Stores information about medal winners, including country, year, and medal type.
      - countries: Contains data about countries, including names and geographic coordinates.
