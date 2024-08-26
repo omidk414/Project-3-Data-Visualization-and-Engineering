@@ -56,15 +56,19 @@ To get started with this project, follow these steps:
    ```
    Visit http://localhost:5000 in your web browser to view the application.
 
+5. **Summary of API Routes**:
+
+   - /: Renders the main page (index.html) of the application.
+   - /data/medal_data/<int:year>: Fetches and returns medal data for a specific Olympic year in JSON format.
+  
 ## Database and ETL Process
 1. **Database and ETL Process**
    - Database Used: PostgreSQL
    - Reason for Choice: PostgreSQL was selected due to familiarity and hands-on experience. It provides robust features, scalability, and support for complex queries such as mapping the different country names throughout different time periods (e.g. Russian Empire/Soviet Union to Russia).
 
 2. **Database Design**
-   The database consists of two main tables using the Summer_olympic_Medals.xls and World_lat_lon.csv files:
-   - olympics_medals: Stores information about medal winners, including country, year, and medal type.
-   - countries: Contains data about countries, including names and geographic coordinates.
+   The database consists of four main tables using the Summer_olympic_Medals.xls, World_lat_lon.csv, world_population.csv, and gdp_data.csv files:
+  
 - **`olympics_medals`**: This table holds detailed records of medal winners in each Olympic event. It includes columns for:
   - `id`: Unique identifier for each medal record.
   - `country_name`: Name of the country that won the medal.
