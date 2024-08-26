@@ -2,17 +2,15 @@ from flask import Flask, render_template
 import pandas as pd
 from sqlalchemy import create_engine
 from sklearn.preprocessing import MinMaxScaler
-import json
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
     # Create a database connection
-    engine = create_engine('--REPLACE-WITH-DATABASE-CONNECTION-STRING--')
+    engine = create_engine('postgresql://postgres:azulsaph@localhost:5432/olympics')
     
-    # Define the list of African countries
+    # Define the list of countries in each region
     african_countries = [
         'Algeria', 'Angola', 'Benin', 'Botswana', 'Burkina Faso', 'Burundi', 
         'Cabo Verde', 'Cameroon', 'Central African Republic', 'Chad', 'Comoros', 
@@ -25,8 +23,6 @@ def index():
         'South Sudan', 'Sudan', 'Tanzania', 'Togo', 'Tunisia', 'Uganda', 
         'Zambia', 'Zimbabwe'
     ]
-    
-    # Define additional custom groupings
     nordic_countries = ['Finland', 'Sweden', 'Norway', 'Denmark', 'Iceland']
     central_europe = ['Switzerland', 'Austria', 'Poland', 'Hungary', 'Czech Republic', 'Slovakia']
     caribbean_countries = [
@@ -57,12 +53,26 @@ def index():
         'Singapore', 'Myanmar', 'Brunei', 'Cambodia', 'Laos', 'Sri Lanka'
     ]
     east_asia = ['South Korea', 'Taiwan', 'Mongolia', 'North Korea']
-
-    # Define the list of Central American countries
     central_america = [
         'Mexico', 'Belize', 'Costa Rica', 'El Salvador', 'Guatemala', 
         'Honduras', 'Nicaragua', 'Panama'
     ]
+
+    # Create a mapping for region grouping
+    region_mapping = {**{country: 'Africa' for country in african_countries},
+                      **{country: 'Nordic Countries' for country in nordic_countries},
+                      **{country: 'Central Europe' for country in central_europe},
+                      **{country: 'Caribbean' for country in caribbean_countries},
+                      **{country: 'Benelux' for country in benelux_countries},
+                      **{country: 'Oceania' for country in oceania_countries},
+                      **{country: 'Iberian Peninsula' for country in iberian_peninsula_countries},
+                      **{country: 'South America' for country in south_america},
+                      **{country: 'Middle East' for country in middle_east},
+                      **{country: 'Eastern Europe' for country in eastern_europe},
+                      **{country: 'Central Asia' for country in central_asia},
+                      **{country: 'Southeast Asia' for country in southeast_asia},
+                      **{country: 'East Asia' for country in east_asia},
+                      **{country: 'Central America' for country in central_america}}
 
     # Query for GDP data for all countries
     gdp_query = """
@@ -88,9 +98,9 @@ def index():
 
     # Standardize country names across all datasets
     country_name_mapping = {
-        'Russian Empire': 'Russia',
-        'Soviet Union': 'Russia',
         'Russian Federation': 'Russia',
+        'USSR': 'Russia',
+        'Soviet Union': 'Russia',
         'United States': 'USA',
         'America': 'USA',
         'United Kingdom': 'UK',
@@ -103,98 +113,11 @@ def index():
     population_data['country'] = population_data['country'].replace(country_name_mapping)
     medals_data['country'] = medals_data['country'].replace(country_name_mapping)
 
-    # Group countries into their respective regions
-    gdp_data['country'] = gdp_data['country'].apply(
-        lambda x: 'Africa' if x in african_countries else (
-            'Nordic Countries' if x in nordic_countries else (
-                'Central Europe' if x in central_europe else (
-                    'Caribbean' if x in caribbean_countries else (
-                        'Benelux' if x in benelux_countries else (
-                            'Oceania' if x in oceania_countries else (
-                                'Iberian Peninsula' if x in iberian_peninsula_countries else (
-                                    'South America' if x in south_america else (
-                                        'Middle East' if x in middle_east else (
-                                            'Eastern Europe' if x in eastern_europe else (
-                                                'Central Asia' if x in central_asia else (
-                                                    'Southeast Asia' if x in southeast_asia else (
-                                                        'East Asia' if x in east_asia else (
-                                                            'Central America' if x in central_america else x
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+    # Apply the region mapping to group countries
+    gdp_data['country'] = gdp_data['country'].map(region_mapping).fillna(gdp_data['country'])
+    population_data['country'] = population_data['country'].map(region_mapping).fillna(population_data['country'])
+    medals_data['country'] = medals_data['country'].map(region_mapping).fillna(medals_data['country'])
 
-    population_data['country'] = population_data['country'].apply(
-        lambda x: 'Africa' if x in african_countries else (
-            'Nordic Countries' if x in nordic_countries else (
-                'Central Europe' if x in central_europe else (
-                    'Caribbean' if x in caribbean_countries else (
-                        'Benelux' if x in benelux_countries else (
-                            'Oceania' if x in oceania_countries else (
-                                'Iberian Peninsula' if x in iberian_peninsula_countries else (
-                                    'South America' if x in south_america else (
-                                        'Middle East' if x in middle_east else (
-                                            'Eastern Europe' if x in eastern_europe else (
-                                                'Central Asia' if x in central_asia else (
-                                                    'Southeast Asia' if x in southeast_asia else (
-                                                        'East Asia' if x in east_asia else (
-                                                            'Central America' if x in central_america else x
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-
-    medals_data['country'] = medals_data['country'].apply(
-        lambda x: 'Africa' if x in african_countries else (
-            'Nordic Countries' if x in nordic_countries else (
-                'Central Europe' if x in central_europe else (
-                    'Caribbean' if x in caribbean_countries else (
-                        'Benelux' if x in benelux_countries else (
-                            'Oceania' if x in oceania_countries else (
-                                'Iberian Peninsula' if x in iberian_peninsula_countries else (
-                                    'South America' if x in south_america else (
-                                        'Middle East' if x in middle_east else (
-                                            'Eastern Europe' if x in eastern_europe else (
-                                                'Central Asia' if x in central_asia else (
-                                                    'Southeast Asia' if x in southeast_asia else (
-                                                        'East Asia' if x in east_asia else (
-                                                            'Central America' if x in central_america else x
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-
-    
     # Aggregate the data for grouped regions
     gdp_data = gdp_data.groupby(['country', 'year']).sum().reset_index()
     population_data = population_data.groupby(['country', 'year']).sum().reset_index()
@@ -214,7 +137,8 @@ def index():
     # Normalize Medals data
     medals_data['Value'] = scaler.fit_transform(medals_data['total_medals'].values.reshape(-1, 1))
     medals_data['Indicator'] = 'Medals'
-        # Concatenate the data into a single DataFrame
+
+    # Concatenate the data into a single DataFrame
     combined_data = pd.concat([gdp_data[['country', 'year', 'Indicator', 'Value']],
                                population_data[['country', 'year', 'Indicator', 'Value']],
                                medals_data[['country', 'year', 'Indicator', 'Value']]])
@@ -225,8 +149,7 @@ def index():
     # Convert DataFrame to JSON for use in the frontend
     data_json = bubble_chart_data.to_json(orient='records')
 
-    return render_template('index.html', data=data_json)
+    return render_template('bub_index.html', data=data_json)
 
 if __name__ == '__main__':
     app.run(debug=True)
-    

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Bubble Chart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bub_styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <h1>Olympic Interactive Bubble</h1>
+    <div id="vis"></div>
+    <input type="range" id="yearSlider" min="1960" max="2020" step="4" value="1960" oninput="updateYear(this.value)">
+    <span id="yearValue">1960</span>
+
+    <!-- Include the external JS file -->
+    <script>
+        const data = {{ data | tojson | safe }};
+    </script>
+    <script src="{{ url_for('static', filename='bub_scripts.js') }}"></script>
+</body>
+</html>
