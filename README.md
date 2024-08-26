@@ -24,7 +24,7 @@ To get started with this project, follow these steps:
    cd directory
    ```
 2. **Install Dependencies**:
-3. 
+   
    Ensure you have Python and PostgreSQL installed. Install the necessary libraries using the following commands:
    
    - `flask`: Web framework for building the web application.
@@ -35,8 +35,10 @@ To get started with this project, follow these steps:
 
 4. **Setup the PostgreSQL Database**:
 - Create a PostgreSQL database and load the provided data into it.
-     - olympics_medals: Stores information about medal winners, including country, year, and medal type.
+     - olympics_medals: Contains information about medal winners, including country, year, and medal type.
      - countries: Contains data about countries, including names and geographic coordinates.
+     - gdp: Contains data about countries GDP anually up to the year 2022.
+     - population: Contains information about the population count. 
 
 - Set up the .env file with your database credentials:
    ```bash
