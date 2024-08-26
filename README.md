@@ -221,7 +221,7 @@ def get_choropleth_data(year):
 
     return render_template('bub_index.html', data=data_json)
 ```
-![Chart4]()
+![Chart4](https://github.com/omidk414/Project-3-Data-Visualization-and-Engineering/blob/main/images/Bubble_Chart.png)
 
 
 ## Usability
