@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Bubble Chart</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <h1>Interactive Bubble Chart</h1>
+    <div id="vis"></div>
+    <input type="range" id="yearSlider" min="1960" max="2020" step="4" value="1960" oninput="updateYear(this.value)">
+    <span id="yearValue">1960</span>
+
+    <script>
+    // Pass the data from Flask to JavaScript
+    const data = {{ data | safe }};
+
+    let spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "An interactive bubble chart.",
+        "data": {
+            "values": data
+        },
+        "transform": [
+            {
+                "filter": "datum.year == 1960"
+            }
+        ],
+        "mark": "circle",
+        "encoding": {
+            "x": {"field": "GDP", "type": "quantitative", "title": "GDP (normalized)"},
+            "y": {"field": "Medals", "type": "quantitative", "title": "Olympic Medals (normalized)"},
+            "size": {"field": "Population", "type": "quantitative", "title": "Population (normalized)"},
+            "color": {"field": "country", "type": "nominal"},
+            "tooltip": [
+                {"field": "country", "type": "nominal"},
+                {"field": "year", "type": "ordinal"},
+                {"field": "GDP", "type": "quantitative"},
+                {"field": "Medals", "type": "quantitative"},
+                {"field": "Population", "type": "quantitative"}
+            ]
+        },
+        "width": 600,
+        "height": 400
+    };
+
+    vegaEmbed('#vis', spec);
+
+    function updateYear(year) {
+        spec.transform[0].filter = "datum.year == " + year;
+        vegaEmbed('#vis', spec);
+        document.getElementById("yearValue").innerText = year;
+    }
+    </script>
+</body>
+</html>
