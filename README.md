@@ -72,8 +72,8 @@ To get started with this project, follow these steps:
   - `dms`: Degrees, minutes, seconds representation of coordinates.
   - `ddm`: Degrees and decimal minutes representation of coordinates.
  
-- **`world population`**: This table contains population data for each country, which is essential for demographic analysis and data analysis. It includes columns for::
-  - `name`: Official name of the country.
+- **`world population`**: This table contains population data for each country, which is essential for demographic analysis and data analysis. It includes columns for:
+  - `country`: Official name of the country.
   - `total_population`: The total population of the country for the specified year.
   - `year`: The year for which the population data is recorded.
  
