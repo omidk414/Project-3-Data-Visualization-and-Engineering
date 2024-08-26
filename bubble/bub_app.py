@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # Create a database connection
-    engine = create_engine('postgresql://postgres:azulsaph@localhost:5432/olympics')
+    engine = create_engine('')
     
     # Define the list of countries in each region
     african_countries = [
