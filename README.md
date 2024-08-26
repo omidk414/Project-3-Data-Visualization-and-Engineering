@@ -41,7 +41,8 @@ To get started with this project, follow these steps:
    ```bash
    DATABASE_URL=postgresql://username:password@localhost:5432/database_name
    ```   
-4. **Run the Flask Applications**: 
+4. **Run the Flask Applications**:
+    
    Start the Flask application for the **Choropleth Map** by running:
    ```bash
    python app.py 
