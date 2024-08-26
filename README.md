@@ -166,6 +166,11 @@ def get_choropleth_data(year):
 ![Chart3](https://github.com/omidk414/Project-3-Data-Visualization-and-Engineering/blob/main/images/Chloropleth_Flask_Image.png)
 
 4. Bubble Chart
+
+`Grouping Countries` into regions or meaningful categories, we can uncover regional trends and make more insightful comparisons. This approach helps us manage large datasets effectively, focusing on broader patterns rather than isolated country data.
+
+`Normalizing Data` ensures that the data we visualize is on a comparable scale, allowing for fair comparisons across countries. By bringing different metrics into a consistent range, we enhance the clarity and accuracy of our analysis, making it easier to identify relative differences and trends in the bubble chart.
+
 ```python
 
 
