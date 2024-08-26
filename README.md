@@ -71,6 +71,17 @@ To get started with this project, follow these steps:
   - `dd`: Decimal degrees representation of coordinates.
   - `dms`: Degrees, minutes, seconds representation of coordinates.
   - `ddm`: Degrees and decimal minutes representation of coordinates.
+ 
+- **`world population`**: This table contains population data for each country, which is essential for demographic analysis and data analysis. It includes columns for::
+  - `name`: Official name of the country.
+  - `total_population`: The total population of the country for the specified year.
+  - `year`: The year for which the population data is recorded.
+ 
+- **`world gdp`**: This table contains information about each country, which helps in geospatial visualization and data analysis. It includes columns for:
+  - `country`: Official name of the country.
+  - `year`: The year for which the population data is recorded.
+  - `gdp`: The Gross Domestic Product (GDP) of the country for the specified year, typically measured in current U.S. dollars.
+
 ERD: ![ERD](https://github.com/omidk414/Project-3-Data-Visualization-and-Engineering/blob/main/images/ERD.png)
 
 3. **ETL Workflow**
