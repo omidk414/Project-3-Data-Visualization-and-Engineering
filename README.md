@@ -40,17 +40,21 @@ To get started with this project, follow these steps:
    ```bash
    DATABASE_URL=postgresql://username:password@localhost:5432/database_name
    ```   
-4. **Run the Flask Application**: 
-   Start the Flask application by running:
+4. **Run the Flask Applications**: 
+   Start the Flask application for the **Choropleth Map** by running:
    ```bash
-   python app.py
+   python app.py 
+   ```
+   Start the Flask application for the **Bubble Chart** by running:
+   ```bash
+   python bub_app.py
    ```
    Visit http://localhost:5000 in your web browser to view the application.
 
 ## Database and ETL Process
 1. **Database and ETL Process**
    - Database Used: PostgreSQL
-   - Reason for Choice: PostgreSQL was selected due to familiarity and hands-on experience. It provides robust features, scalability, and support for complex queries.
+   - Reason for Choice: PostgreSQL was selected due to familiarity and hands-on experience. It provides robust features, scalability, and support for complex queries such as mapping the different country names throughout different time periods (e.g. Russian Empire/Soviet Union to Russia).
 
 2. **Database Design**
    The database consists of two main tables using the Summer_olympic_Medals.xls and World_lat_lon.csv files:
@@ -208,6 +212,7 @@ def get_choropleth_data(year):
 
     return render_template('bub_index.html', data=data_json)
 ```
+![Chart4]()
 
 
 ## Usability
@@ -235,6 +240,14 @@ In this project, several ethical considerations were taken into account to ensur
 
 4. **Bias Mitigation**:
    - **Inclusivity**: The project includes a wide range of countries and Olympic events to provide a comprehensive view of the data. This helps in avoiding skewed analysis that might arise from focusing only on certain regions or periods.
+
+## Analysis
+We explored various factors that could potentially influence a country's medal count, such as GDP, population, and even the advantages of hosting the Olympics. In our analysis, we identified notable trends for countries like the United States, China, and India. Although both China and India have large populations and significant wealth, China consistently wins more medals, suggesting that population and wealth alone are not decisive factors. This observation led us to reconsider our initial hypothesis regarding the impact of these factors on Olympic success.
+
+We also hypothesized that the United States may have a stronger support system for sports, including more after-school programs, greater parental involvement, and nation wide competitions. Whereas, India might lack similar focus and infrastructure. Cultural preferences for certain sports, such as cricket in India, hockey in Canada, or table tennis in China, can influence the allocation of funding and resources.
+
+Our research also revealed how historical and political contexts, such as the Cold War, significantly impacted international competitions and Olympic outcomes. Overall, this analysis deepened our understanding of the complex interplay between socio-economic, cultural, and political factors in shaping Olympic success.
+
 
 ### Collaborators
 Omid Khan - omidk414@gmail.com - omidk414\
