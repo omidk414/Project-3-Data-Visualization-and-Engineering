@@ -10,8 +10,9 @@ This project aims to explore and analyze the modern-day Olympic Games dataset, c
 3. [Visualizations](#visualizations)
 4. [Usability](#usability)
 5. [Ethical Considerations](#ethical-considerations)
-6. [Collaborators](#collaborators)
-7. [References](#references)
+6. [Analysis](#analysis)
+7. [Collaborators](#collaborators)
+8. [References](#references)
 
 ## Getting Started
 
