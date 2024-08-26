@@ -1,3 +1,23 @@
+// Define red icon
+var redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+// Define default icon
+var defaultIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
 // Initialize the map
 var map = L.map('map').setView([20, 0], 2);  // Center the map
 
@@ -23,8 +43,11 @@ function loadMedalData(year) {
                 var lat = parseFloat(country.latitude);
                 var lng = parseFloat(country.longitude);
 
+                // Choose marker icon based on whether the country is a host country
+                var icon = country.host_country === 'true' ? redIcon : defaultIcon;
+
                 // Create a marker for each country
-                var marker = L.marker([lat, lng])
+                var marker = L.marker([lat, lng], { icon: icon })
                     .bindPopup(`<h3>${country.country_name}</h3>
                                 <p>Gold: ${country.gold}</p>
                                 <p>Silver: ${country.silver}</p>
